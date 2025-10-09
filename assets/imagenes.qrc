@@ -2,4 +2,13 @@
   <qresource prefix="png">
     <file>png/logotipo.png</file>
   </qresource>
+  <qresource prefix="ico">
+    <file>png/utilitiestweaktool_94170.png</file>
+    <file>png/User_Group-80_icon-icons.com_57247.png</file>
+    <file>png/Inventory-maintenance_25374.png</file>
+    <file>png/business_inventory_maintenance_product_box_boxes_2326.png</file>
+    <file>png/box_full_products_14639.png</file>
+    <file>png/add_icon-icons.com_74429.png</file>
+    <file>png/shoppaymentorderbuy-20_icon-icons.com_73877.png</file>
+  </qresource>
 </RCC>

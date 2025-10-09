@@ -1,5 +1,5 @@
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, String, Integer, DateTime, Text, Boolean, Index
+from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy import Column, String, Integer, DateTime, Text, Boolean, Index, ForeignKey
 from datetime import datetime
 import uuid
 
@@ -26,6 +26,29 @@ class Producto(Base):
 
 Index("idx_productos_codigo", Producto.codigo, unique=True)
 Index("idx_productos_updated", Producto.updated_at)
+
+class Boleta(Base):
+    __tablename__ = "boletas"
+    id = Column(String, primary_key=True, default=gen_uuid)
+    folio = Column(String, unique=True, nullable=False)         # ej: BLT-20251009-000001
+    total = Column(Integer, nullable=False, default=0)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    detalles = relationship("BoletaDetalle", back_populates="boleta", cascade="all, delete-orphan")
+
+class BoletaDetalle(Base):
+    __tablename__ = "boleta_detalles"
+    id = Column(String, primary_key=True, default=gen_uuid)
+    boleta_id = Column(String, ForeignKey("boletas.id"), nullable=False)
+
+    # snapshot para desglosar la boleta aunque cambien los productos luego
+    codigo_producto = Column(String, nullable=False)
+    descripcion = Column(String, nullable=False)
+    precio_unitario = Column(Integer, nullable=False, default=0)
+    cantidad = Column(Integer, nullable=False, default=0)
+    subtotal = Column(Integer, nullable=False, default=0)
+
+    boleta = relationship("Boleta", back_populates="detalles")
 
 class Outbox(Base):
     __tablename__ = "outbox"

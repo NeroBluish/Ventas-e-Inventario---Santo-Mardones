@@ -1,13 +1,26 @@
-﻿__pycache__/
+﻿# Python
+__pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.log
+
+# Entorno
 .venv/
 .env
 *.env
+
+# IDE
 .vscode/
 .idea/
+
+# Builds/Dist
 build/
 dist/
 *.spec
 *.exe
+
+# Datos locales
 *.db
 *.sqlite
