@@ -1,5 +1,6 @@
 # app/ui/ventas_controller.py
 from PySide6.QtCore import Qt
+import re
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QTableView, QLabel, QMessageBox
 
@@ -130,6 +131,34 @@ def init_ventas_page(root: QWidget):
             code_edit.clear()
             code_edit.setFocus()
 
+    # Override: soporta cantidad en codigo (ABC*3, ABC x3)
+    def _add_by_code():
+        raw = (code_edit.text().strip() if code_edit else "")
+        if not raw:
+            return
+        m = re.match(r"^\s*([^\s\*xX]+)\s*(?:[xX\*]\s*(\d+))?\s*$", raw)
+        if not m:
+            QMessageBox.information(page, "Formato no valido", "Usa: CODIGO o CODIGO*x (p.ej. ABC*3)")
+            return
+        code = m.group(1)
+        try:
+            qty = int(m.group(2) or 1)
+        except ValueError:
+            qty = 1
+        if qty <= 0:
+            QMessageBox.information(page, "Cantidad invalida", "La cantidad debe ser mayor que 0.")
+            return
+        with SessionLocal() as s:
+            p = get_producto_por_codigo(s, code)
+        if not p:
+            QMessageBox.information(page, "No encontrado", f"C��digo '{code}' no existe.")
+            return
+        state.add(p.codigo, p.descripcion, int(p.precio_venta), cant=qty)
+        _repaint()
+        if code_edit:
+            code_edit.clear()
+            code_edit.setFocus()
+
     def _cobrar():
         if not state.items:
             QMessageBox.information(page, "Carrito vacío", "Agrega productos antes de cobrar.")
@@ -147,12 +176,13 @@ def init_ventas_page(root: QWidget):
             with SessionLocal() as s, s.begin():
                 boleta = crear_boleta_con_detalles(s, items)
                 folio = boleta.folio
+                total_val = int(boleta.total)
         except Exception as e:
             QMessageBox.critical(page, "Error al cobrar", str(e))
             return
         state.clear()
         _repaint()
-        QMessageBox.information(page, "Venta registrada", f"Boleta {folio} guardada.\nTotal: {_fmt_money(boleta.total)}")
+        QMessageBox.information(page, "Venta registrada", f"Boleta {folio} guardada.\nTotal: {_fmt_money(total_val)}")
 
     # Enlaces
     if code_edit:

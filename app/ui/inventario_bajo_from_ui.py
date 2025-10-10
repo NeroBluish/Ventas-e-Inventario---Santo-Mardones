@@ -2,13 +2,14 @@
 from app.ui.ui_runtime import load_ui  # QUiLoader helper
 from PySide6.QtGui import QAction, QStandardItemModel, QStandardItem
 from app.ui.ventas_controller import init_ventas_page
-from PySide6.QtWidgets import QTableView, QPushButton, QStackedWidget, QWidget, QToolButton   # <-- NUEVO
+from PySide6.QtWidgets import QTableView, QPushButton, QStackedWidget, QWidget, QToolButton, QMessageBox, QMenu   # <-- NUEVO
 from PySide6.QtCore import Qt, QSortFilterProxyModel
 from app.ui.add_producto_dialog import open_add_producto_dialog  
+from app.ui.edit_producto_dialog import open_edit_producto_dialog
 
 # --- DB imports ---
 from app.core.db_local import SessionLocal
-from app.core.repositories import get_productos_bajo_inventario
+from app.core.repositories import get_productos_bajo_inventario, soft_delete_producto
 # ------------------
 
 # ------------------- helpers para STACK (NUEVO) -------------------
@@ -152,6 +153,85 @@ def create_main_window(username="admin"):
         actAgregar.triggered.connect(lambda: open_add_producto_dialog(w, on_saved=_on_saved, modal=False))
     if btnAgregar:
         btnAgregar.clicked.connect(lambda: open_add_producto_dialog(w, on_saved=_on_saved, modal=False))
+
+    # Editar / Eliminar producto
+    def _selected_codigo():
+        sel = tabla.selectionModel()
+        if not sel or not sel.hasSelection():
+            return None
+        idxs = sel.selectedRows(0)
+        if not idxs:
+            return None
+        idx = idxs[0]
+        try:
+            src_idx = proxy.mapToSource(idx)
+            return model.item(src_idx.row(), 0).text()
+        except Exception:
+            return idx.data()
+
+    def _on_edit():
+        code = _selected_codigo()
+        if not code:
+            QMessageBox.information(w, "Edición", "Selecciona un producto para editar.")
+            return
+        def _saved():
+            load_table_from_db(w)
+            try:
+                w.statusBar().showMessage("Producto actualizado", 2000)
+            except Exception:
+                pass
+        open_edit_producto_dialog(w, codigo=code, on_saved=_saved, modal=False)
+
+    def _on_delete():
+        code = _selected_codigo()
+        if not code:
+            QMessageBox.information(w, "Eliminar", "Selecciona un producto para eliminar.")
+            return
+        ret = QMessageBox.question(w, "Confirmar", f"¿Eliminar producto '{code}'?")
+        if ret != QMessageBox.StandardButton.Yes:
+            return
+        try:
+            with SessionLocal() as s, s.begin():
+                soft_delete_producto(s, code)
+        except Exception as e:
+            QMessageBox.critical(w, "Error", f"No se pudo eliminar: {e}")
+            return
+        load_table_from_db(w)
+        try:
+            w.statusBar().showMessage("Producto eliminado", 2000)
+        except Exception:
+            pass
+
+    # Intenta conectar acciones/botones si existen
+    actEditar = w.findChild(QAction, "actionEditar")
+    btnEditar = w.findChild(QPushButton, "btnEditar")
+    if actEditar:
+        actEditar.triggered.connect(_on_edit)
+    if btnEditar:
+        btnEditar.clicked.connect(_on_edit)
+
+    actEliminar = w.findChild(QAction, "actionEliminar")
+    btnEliminar = w.findChild(QPushButton, "btnEliminar")
+    if actEliminar:
+        actEliminar.triggered.connect(_on_delete)
+    if btnEliminar:
+        btnEliminar.clicked.connect(_on_delete)
+
+    # Context menu sobre la tabla
+    try:
+        tabla.setContextMenuPolicy(Qt.CustomContextMenu)
+        def _ctx(pos):
+            menu = QMenu(w)
+            a1 = menu.addAction("Editar…")
+            a2 = menu.addAction("Eliminar")
+            act = menu.exec(tabla.viewport().mapToGlobal(pos))
+            if act == a1:
+                _on_edit()
+            elif act == a2:
+                _on_delete()
+        tabla.customContextMenuRequested.connect(_ctx)
+    except Exception:
+        pass
 
     # 5) NAVEGACIÓN entre páginas (NUEVO)
     actVentas = w.findChild(QAction, "actionVentas")

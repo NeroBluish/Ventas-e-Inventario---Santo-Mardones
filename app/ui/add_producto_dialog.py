@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt
 from app.core.db_local import SessionLocal
-from app.core.repositories import insert_producto
+from app.core.repositories import insert_producto, update_producto, get_producto_por_codigo
 
 def open_add_producto_dialog(parent=None, on_saved=None, modal=False):
     """
