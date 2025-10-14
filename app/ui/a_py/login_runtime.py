@@ -1,10 +1,10 @@
-# app/ui/login_runtime.py
+# app/ui/a_py/login_runtime.py
 from PySide6.QtWidgets import QDialog, QLineEdit, QPushButton, QLabel, QCheckBox
-from app.ui.ui_runtime import load_ui
+from app.ui.a_py.ui_runtime import load_ui
 
 def create_login_dialog():
     # Asegúrate de que el formulario raíz en Designer sea un QDialog
-    dlg = load_ui("app/ui/login.ui")  # devuelve un QDialog si el .ui es un Dialog
+    dlg = load_ui("app/ui/a_ui/login.ui")  # devuelve un QDialog si el .ui es un Dialog
 
     # Busca los widgets por objectName (puestos en Designer)
     user_edit = dlg.findChild(QLineEdit, "usernameEdit")

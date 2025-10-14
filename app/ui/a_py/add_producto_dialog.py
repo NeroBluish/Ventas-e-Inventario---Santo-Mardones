@@ -1,5 +1,5 @@
-# app/ui/add_producto_dialog.py
-from app.ui.ui_runtime import load_ui
+# app/ui/producto/add_producto_dialog.py
+from app.ui.a_py.ui_runtime import load_ui
 from PySide6.QtWidgets import (
     QLineEdit, QTextEdit, QPlainTextEdit, QSpinBox, QDoubleSpinBox,
     QPushButton, QMessageBox

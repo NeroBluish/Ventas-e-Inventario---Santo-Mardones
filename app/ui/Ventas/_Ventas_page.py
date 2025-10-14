@@ -1,11 +1,20 @@
-# app/ui/ventas_controller.py
+# app/ui/Ventas/_Ventas_page.py
 from PySide6.QtCore import Qt
 import re
 from PySide6.QtGui import QStandardItemModel, QStandardItem
 from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QTableView, QLabel, QMessageBox
 
+from app.ui.Ventas.varios_dialog import open_varios_dialog
+from app.ui.Ventas.buscar_producto_dialog import open_buscar_producto_dialog
+
 from app.core.db_local import SessionLocal
 from app.core.repositories import get_producto_por_codigo, crear_boleta_con_detalles
+
+IVA_RATE = 0.19                 
+PRECIO_UNIT_INCLUYE_IVA = True   # True = P.Unit ya viene con IVA
+
+
+
 
 COLS = ["Código", "Descripción", "Cant.", "P.Unit", "Importe"]
 
@@ -55,6 +64,16 @@ class VentasState:
             out.append((cod, v["desc"], v["cant"], v["precio_unit"]))
         return out
     
+    def remove(self, codigo: str, qty: int | None = None):
+        """Elimina qty unidades del código; si qty es None o alcanza 0, borra toda la fila."""
+        it = self.items.get(codigo)
+        if not it:
+            return
+        if qty is None or qty >= it["cant"]:
+            self.items.pop(codigo, None)
+        else:
+            it["cant"] -= qty
+    
 def _find_any(parent, cls, names):
     """Busca por nombre dentro de parent; si no, toma el ÚNICO del tipo cls en toda la subjerarquía."""
     for n in names:
@@ -84,6 +103,28 @@ def init_ventas_page(root: QWidget):
     table      = _find_any(page, QTableView, ["tablaTicket","tablaVentas","tableView"])
     lbl_total  = _find_any(page, QLabel,     ["lblTotal","total"])
     btn_cobrar = _find_any(page, QPushButton,["btnCobrar","cobrar"])
+    lbl_iva  = page.findChild(QLabel, "lblIVA")
+    lbl_neto = page.findChild(QLabel, "lblNeto")
+
+
+    btn_del_row = page.findChild(QPushButton, "btnEliminarFila") \
+              or page.findChild(QPushButton, "btnBorrarArt")   \
+              or None  # (en tu UI el texto dice "Borrar Art.")
+
+    # Botón para ELIMINAR TODO el ticket (el que está abajo a la derecha):
+    btn_clear_all = page.findChild(QPushButton, "btnEliminarTicket") \
+              or page.findChild(QPushButton, "btnEliminarTodo")  \
+              or None  # si puedes, renómbralo a 'btnEliminarTicket'
+    
+    # buscar por nombre o por texto
+    btn_buscar = page.findChild(QPushButton, "btnBuscar") \
+            or page.findChild(QPushButton, "btnBuscarProducto") \
+            or None
+    
+    # localizar el botón (por nombre o por texto)
+    btn_varios = page.findChild(QPushButton, "btnINSVarios") \
+           or page.findChild(QPushButton, "btnVarios")   \
+           or None  # también lo encuentra por texto si quieres
 
     missing = []
     if table is None:      missing.append("QTableView (ej. 'tablaTicket')")
@@ -107,14 +148,73 @@ def init_ventas_page(root: QWidget):
     page._ventas_state = state
     page._ventas_model = model
 
+    def _recalc():
+        bruto = state.total()  # suma de (P.Unit * Cant) del carrito
+        if PRECIO_UNIT_INCLUYE_IVA:
+            neto = round(bruto / (1 + IVA_RATE))
+            iva  = bruto - neto
+            total = bruto
+        else:
+            neto = bruto
+            iva  = round(neto * IVA_RATE)
+            total = neto + iva
+        
+        # pinta labels
+        if lbl_total:
+            lbl_total.setText(_fmt_money(total))
+        if lbl_iva:
+            lbl_iva.setText(f"IVA: {_fmt_money(iva)}")
+        if lbl_neto:
+            lbl_neto.setText(f"Neto: {_fmt_money(neto)}")
+
     def _repaint():
-        # repinta tabla desde el carrito
         m = page._ventas_model
         m.removeRows(0, m.rowCount())
         for (codigo, desc, cant, punit) in state.as_rows():
             _add_row(m, codigo, desc, cant, punit)
-        if lbl_total:
-            lbl_total.setText(_fmt_money(state.total()))
+        _recalc()
+
+    def _remove_selected():
+        sel = table.selectionModel().selectedRows()
+        if not sel:
+            QMessageBox.information(page, "Eliminar", "Selecciona una fila del ticket.")
+            return
+        row = sel[0].row()
+        code = model.item(row, 0).text()  # columna Código
+        state.remove(code)                # borra toda la línea (puedes pasar qty=1 si quieres restar 1)
+        _repaint()
+
+    def _clear_all():
+        if not state.items:
+            return
+        resp = QMessageBox.question(
+            page, "Vaciar ticket", "¿Deseas eliminar TODOS los productos del ticket?",
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No
+        )
+        if resp == QMessageBox.Yes:
+            state.clear()
+            _repaint()
+
+    def _open_buscar():
+        open_buscar_producto_dialog(root, modal=True)  # modal y con parent; la X sólo cierra el diálogo
+
+    def _open_varios():
+        def _take(_dlg, data):
+            code = data["codigo"]
+            qty  = data["cantidad"]
+            if not code:
+                return
+            # buscar el producto por código
+            with SessionLocal() as s:
+                p = get_producto_por_codigo(s, code)
+            if not p:
+                QMessageBox.information(page, "No encontrado", f"Código '{code}' no existe.")
+                return
+            # agregar al carrito y refrescar
+            state.add(p.codigo, p.descripcion, int(p.precio_venta), cant=qty)
+            _repaint()
+        open_varios_dialog(root, on_accept=_take, modal=True)
+
 
     def _add_by_code():
         code = (code_edit.text().strip() if code_edit else "")
@@ -151,7 +251,7 @@ def init_ventas_page(root: QWidget):
         with SessionLocal() as s:
             p = get_producto_por_codigo(s, code)
         if not p:
-            QMessageBox.information(page, "No encontrado", f"C��digo '{code}' no existe.")
+            QMessageBox.information(page, "No encontrado", f"Codigo '{code}' no existe.")
             return
         state.add(p.codigo, p.descripcion, int(p.precio_venta), cant=qty)
         _repaint()
@@ -191,6 +291,38 @@ def init_ventas_page(root: QWidget):
         btn_add.clicked.connect(_add_by_code)
     if btn_cobrar:
         btn_cobrar.clicked.connect(_cobrar)
+    if btn_del_row:
+        btn_del_row.clicked.connect(_remove_selected)
+    if btn_clear_all:
+        btn_clear_all.clicked.connect(_clear_all)
+    if btn_buscar:
+        btn_buscar.clicked.connect(_open_buscar)
+    if btn_varios:
+        btn_varios.clicked.connect(_open_varios)
 
+    # expone repaint para re-entrada desde el router
+    page._ventas_repaint = _repaint
     # arranque
     _repaint()
+
+
+# ---------- wrapper mínimo para el router ----------
+from PySide6.QtWidgets import QWidget as _QW
+
+def enter_ventas(root: QWidget):
+    """
+    Llamar al entrar a pageVentas:
+      - Primera vez: init_ventas_page(...)
+      - Siguientes:  repinta para reflejar el estado actual del carrito
+    """
+    page = root.findChild(_QW, "pageVentas")
+    if page is None:
+        return
+    if not getattr(page, "_ventas_inited", False):
+        init_ventas_page(root)
+        setattr(page, "_ventas_inited", True)
+    else:
+        rep = getattr(page, "_ventas_repaint", None)
+        if callable(rep):
+            rep()
+

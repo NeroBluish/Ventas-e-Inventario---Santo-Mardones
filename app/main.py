@@ -1,13 +1,13 @@
-#app\main.py
+#app/main.py
 import sys
 from PySide6.QtWidgets import QApplication, QDialog, QLineEdit
 
-# 👇 Importa los recursos compilados (activa rutas :/…)
+# Importa los recursos compilados (activa rutas :/…)
 import assets.imagenes  # registra QResource para :/png/...
 
 from app.core.db_local import init_db
-from app.ui.inventario_bajo_from_ui import create_main_window, load_table_from_db
-from app.ui.login_runtime import create_login_dialog
+from app.ui.main_window import create_main_window
+from app.ui.a_py.login_runtime import create_login_dialog
 
 def main():
     init_db()
@@ -20,9 +20,9 @@ def main():
 
     # 2) Abrir MainWindow
     username = login.findChild(QLineEdit, "usernameEdit").text().strip() if login else "admin"
-    w = create_main_window(username=username)
-    load_table_from_db(w)
+    w = create_main_window(username="admin")
     w.show()
+    app.exec()
 
     sys.exit(app.exec())
 

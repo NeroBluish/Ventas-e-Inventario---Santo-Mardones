@@ -1,4 +1,4 @@
-# app/ui/ui_runtime.py
+# app/ui/a_py/ui_runtime.py
 import os, sys
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, QIODevice

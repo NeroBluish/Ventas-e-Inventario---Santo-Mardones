@@ -1,3 +1,4 @@
+# app/core/db_local.py
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from .config import DB_PATH
