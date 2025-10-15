@@ -174,12 +174,13 @@ def enter_pro_nuevo(root: QWidget):
                     QMessageBox.critical(page, "Error al guardar", f"No se pudo guardar el producto:\n")
                     pass
 
+
             # Éxito
             QMessageBox.information(page, "Producto", "Producto guardado correctamente.")
             # deja coherente los spinboxes
             with signals_blocked(ganancia): ganancia.setValue(ge)
             with signals_blocked(precio_venta): precio_venta.setValue()
-
+            
         except TypeError:
            QMessageBox.critical(page, "Error al guardar", f"No se pudo guardar el producto:\n")
            pass 

@@ -269,7 +269,6 @@ def crear_orden_compra_con_detalles(
         folio_orden=folio_orden,
         fecha_llegada_orden=_parse_date_maybe(fecha_llegada_orden),
         estado_orden=estado_orden or "pendiente",
-        detalle_orden=None,
         updated_at=datetime.utcnow(),
     )
     session.add(oc)

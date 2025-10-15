@@ -645,7 +645,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="pageProNuevo">
            <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -3482,7 +3482,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="pageInvAgregar">
            <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -4320,7 +4320,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="pageComIng">
            <layout class="QVBoxLayout" name="verticalLayout_87">
@@ -4396,22 +4396,6 @@
                    <string>Orden</string>
                   </attribute>
                   <layout class="QGridLayout" name="gridLayout_41">
-                   <item row="0" column="2">
-                    <widget class="QFrame" name="frame_160">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                       <horstretch>1</horstretch>
-                       <verstretch>1</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::Shape::NoFrame</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Shadow::Raised</enum>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="1" column="1">
                     <widget class="QFrame" name="frame_161">
                      <property name="sizePolicy">
@@ -4572,12 +4556,9 @@
                                 <number>0</number>
                                </property>
                                <item>
-                                <widget class="QLineEdit" name="descripcionProNewEdit_3">
-                                 <property name="sizePolicy">
-                                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                                   <horstretch>1</horstretch>
-                                   <verstretch>0</verstretch>
-                                  </sizepolicy>
+                                <widget class="QDateEdit" name="fechaComNewDate">
+                                 <property name="calendarPopup">
+                                  <bool>true</bool>
                                  </property>
                                 </widget>
                                </item>
@@ -4616,21 +4597,21 @@
                              </spacer>
                             </item>
                             <item>
-                             <widget class="QPushButton" name="pushButton">
+                             <widget class="QPushButton" name="ingresarNewProComBtn">
                               <property name="text">
                                <string>Ingresar</string>
                               </property>
                              </widget>
                             </item>
                             <item>
-                             <widget class="QPushButton" name="pushButton_2">
+                             <widget class="QPushButton" name="modificarNewProComBtn">
                               <property name="text">
                                <string>Modificar</string>
                               </property>
                              </widget>
                             </item>
                             <item>
-                             <widget class="QPushButton" name="pushButton_3">
+                             <widget class="QPushButton" name="quitarNewProComBtn">
                               <property name="text">
                                <string>Quitar</string>
                               </property>
@@ -4673,7 +4654,35 @@
                              <number>0</number>
                             </property>
                             <item row="1" column="1">
-                             <widget class="QTableView" name="tableView"/>
+                             <widget class="QTableView" name="productosNewtable">
+                              <property name="palette">
+                               <palette>
+                                <active>
+                                 <colorrole role="Highlight">
+                                  <brush brushstyle="SolidPattern">
+                                   <color alpha="255">
+                                    <red>85</red>
+                                    <green>170</green>
+                                    <blue>255</blue>
+                                   </color>
+                                  </brush>
+                                 </colorrole>
+                                </active>
+                                <inactive>
+                                 <colorrole role="Highlight">
+                                  <brush brushstyle="SolidPattern">
+                                   <color alpha="255">
+                                    <red>85</red>
+                                    <green>170</green>
+                                    <blue>255</blue>
+                                   </color>
+                                  </brush>
+                                 </colorrole>
+                                </inactive>
+                                <disabled/>
+                               </palette>
+                              </property>
+                             </widget>
                             </item>
                            </layout>
                           </widget>
@@ -4810,6 +4819,22 @@
                      </layout>
                     </widget>
                    </item>
+                   <item row="0" column="2">
+                    <widget class="QFrame" name="frame_160">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>1</horstretch>
+                       <verstretch>1</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Shape::NoFrame</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Shadow::Raised</enum>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </widget>
@@ -4845,7 +4870,7 @@
                    <number>7</number>
                   </property>
                   <item>
-                   <widget class="QPushButton" name="guardarProNewBtn_2">
+                   <widget class="QPushButton" name="guardarComNewBtn">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                       <horstretch>1</horstretch>
@@ -4874,7 +4899,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="cancelarProNewBtn_2">
+                   <widget class="QPushButton" name="cancelarComNewBtn">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                       <horstretch>1</horstretch>
@@ -4944,7 +4969,7 @@
                      </sizepolicy>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ID Orden:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Folio Orden:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -5088,8 +5113,8 @@
                       <widget class="QFrame" name="frame_130">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                         <horstretch>1</horstretch>
-                         <verstretch>4</verstretch>
+                         <horstretch>3</horstretch>
+                         <verstretch>11</verstretch>
                         </sizepolicy>
                        </property>
                        <property name="frameShape">
@@ -5114,234 +5139,12 @@
                         <property name="verticalSpacing">
                          <number>0</number>
                         </property>
-                        <item row="0" column="1">
-                         <widget class="QFrame" name="frame_131">
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                            <horstretch>6</horstretch>
-                            <verstretch>4</verstretch>
-                           </sizepolicy>
-                          </property>
-                          <property name="frameShape">
-                           <enum>QFrame::Shape::NoFrame</enum>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Shadow::Raised</enum>
-                          </property>
-                          <layout class="QVBoxLayout" name="verticalLayout_64">
-                           <property name="spacing">
-                            <number>0</number>
-                           </property>
-                           <property name="leftMargin">
-                            <number>0</number>
-                           </property>
-                           <property name="topMargin">
-                            <number>0</number>
-                           </property>
-                           <property name="bottomMargin">
-                            <number>0</number>
-                           </property>
-                           <item>
-                            <widget class="QFrame" name="frame_132">
-                             <property name="sizePolicy">
-                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                               <horstretch>0</horstretch>
-                               <verstretch>1</verstretch>
-                              </sizepolicy>
-                             </property>
-                             <property name="minimumSize">
-                              <size>
-                               <width>0</width>
-                               <height>90</height>
-                              </size>
-                             </property>
-                             <property name="frameShape">
-                              <enum>QFrame::Shape::NoFrame</enum>
-                             </property>
-                             <property name="frameShadow">
-                              <enum>QFrame::Shadow::Raised</enum>
-                             </property>
-                             <layout class="QVBoxLayout" name="verticalLayout_65">
-                              <property name="spacing">
-                               <number>0</number>
-                              </property>
-                              <property name="leftMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="topMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="bottomMargin">
-                               <number>0</number>
-                              </property>
-                              <item>
-                               <widget class="QFrame" name="frame_133">
-                                <property name="sizePolicy">
-                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                  <horstretch>0</horstretch>
-                                  <verstretch>1</verstretch>
-                                 </sizepolicy>
-                                </property>
-                                <property name="frameShape">
-                                 <enum>QFrame::Shape::NoFrame</enum>
-                                </property>
-                                <property name="frameShadow">
-                                 <enum>QFrame::Shadow::Raised</enum>
-                                </property>
-                                <layout class="QVBoxLayout" name="verticalLayout_67">
-                                 <property name="leftMargin">
-                                  <number>0</number>
-                                 </property>
-                                 <item>
-                                  <widget class="QLineEdit" name="lineEdit"/>
-                                 </item>
-                                </layout>
-                               </widget>
-                              </item>
-                             </layout>
-                            </widget>
-                           </item>
-                           <item>
-                            <widget class="QFrame" name="frame_135">
-                             <property name="sizePolicy">
-                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                               <horstretch>0</horstretch>
-                               <verstretch>5</verstretch>
-                              </sizepolicy>
-                             </property>
-                             <property name="frameShape">
-                              <enum>QFrame::Shape::NoFrame</enum>
-                             </property>
-                             <property name="frameShadow">
-                              <enum>QFrame::Shadow::Raised</enum>
-                             </property>
-                             <layout class="QGridLayout" name="gridLayout_39">
-                              <property name="leftMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="topMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="bottomMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="verticalSpacing">
-                               <number>0</number>
-                              </property>
-                              <item row="3" column="0" colspan="2">
-                               <widget class="QFrame" name="frame_136">
-                                <property name="sizePolicy">
-                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                  <horstretch>0</horstretch>
-                                  <verstretch>1</verstretch>
-                                 </sizepolicy>
-                                </property>
-                                <property name="frameShape">
-                                 <enum>QFrame::Shape::NoFrame</enum>
-                                </property>
-                                <property name="frameShadow">
-                                 <enum>QFrame::Shadow::Raised</enum>
-                                </property>
-                                <layout class="QHBoxLayout" name="horizontalLayout_32">
-                                 <property name="leftMargin">
-                                  <number>0</number>
-                                 </property>
-                                 <property name="topMargin">
-                                  <number>0</number>
-                                 </property>
-                                 <property name="bottomMargin">
-                                  <number>0</number>
-                                 </property>
-                                 <item>
-                                  <widget class="QComboBox" name="comboBox"/>
-                                 </item>
-                                 <item>
-                                  <widget class="QFrame" name="frame_144">
-                                   <property name="frameShape">
-                                    <enum>QFrame::Shape::NoFrame</enum>
-                                   </property>
-                                   <property name="frameShadow">
-                                    <enum>QFrame::Shadow::Raised</enum>
-                                   </property>
-                                  </widget>
-                                 </item>
-                                </layout>
-                               </widget>
-                              </item>
-                              <item row="1" column="1">
-                               <widget class="QFrame" name="frame_137">
-                                <property name="sizePolicy">
-                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                  <horstretch>3</horstretch>
-                                  <verstretch>4</verstretch>
-                                 </sizepolicy>
-                                </property>
-                                <property name="frameShape">
-                                 <enum>QFrame::Shape::NoFrame</enum>
-                                </property>
-                                <property name="frameShadow">
-                                 <enum>QFrame::Shadow::Raised</enum>
-                                </property>
-                                <widget class="QFrame" name="frame_138">
-                                 <property name="geometry">
-                                  <rect>
-                                   <x>-10</x>
-                                   <y>0</y>
-                                   <width>174</width>
-                                   <height>221</height>
-                                  </rect>
-                                 </property>
-                                 <property name="sizePolicy">
-                                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                   <horstretch>1</horstretch>
-                                   <verstretch>4</verstretch>
-                                  </sizepolicy>
-                                 </property>
-                                 <property name="frameShape">
-                                  <enum>QFrame::Shape::NoFrame</enum>
-                                 </property>
-                                 <property name="frameShadow">
-                                  <enum>QFrame::Shadow::Raised</enum>
-                                 </property>
-                                 <layout class="QVBoxLayout" name="verticalLayout_68">
-                                  <property name="spacing">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="leftMargin">
-                                   <number>9</number>
-                                  </property>
-                                  <property name="topMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <property name="bottomMargin">
-                                   <number>0</number>
-                                  </property>
-                                  <item>
-                                   <widget class="QDateEdit" name="dateEdit">
-                                    <property name="sizePolicy">
-                                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                                      <horstretch>0</horstretch>
-                                      <verstretch>1</verstretch>
-                                     </sizepolicy>
-                                    </property>
-                                   </widget>
-                                  </item>
-                                 </layout>
-                                </widget>
-                               </widget>
-                              </item>
-                             </layout>
-                            </widget>
-                           </item>
-                          </layout>
-                         </widget>
-                        </item>
                         <item row="0" column="0">
                          <widget class="QFrame" name="frame_139">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                             <horstretch>1</horstretch>
-                            <verstretch>1</verstretch>
+                            <verstretch>12</verstretch>
                            </sizepolicy>
                           </property>
                           <property name="frameShape">
@@ -5364,63 +5167,11 @@
                             <number>0</number>
                            </property>
                            <item>
-                            <widget class="QFrame" name="frame_140">
-                             <property name="sizePolicy">
-                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                               <horstretch>0</horstretch>
-                               <verstretch>1</verstretch>
-                              </sizepolicy>
-                             </property>
-                             <property name="minimumSize">
-                              <size>
-                               <width>0</width>
-                               <height>90</height>
-                              </size>
-                             </property>
-                             <property name="frameShape">
-                              <enum>QFrame::Shape::NoFrame</enum>
-                             </property>
-                             <property name="frameShadow">
-                              <enum>QFrame::Shadow::Raised</enum>
-                             </property>
-                             <layout class="QVBoxLayout" name="verticalLayout_70">
-                              <property name="spacing">
-                               <number>0</number>
-                              </property>
-                              <property name="topMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="rightMargin">
-                               <number>0</number>
-                              </property>
-                              <property name="bottomMargin">
-                               <number>0</number>
-                              </property>
-                              <item>
-                               <widget class="QLabel" name="label_61">
-                                <property name="sizePolicy">
-                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                  <horstretch>0</horstretch>
-                                  <verstretch>1</verstretch>
-                                 </sizepolicy>
-                                </property>
-                                <property name="layoutDirection">
-                                 <enum>Qt::LayoutDirection::RightToLeft</enum>
-                                </property>
-                                <property name="text">
-                                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Folio:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                                </property>
-                               </widget>
-                              </item>
-                             </layout>
-                            </widget>
-                           </item>
-                           <item>
                             <widget class="QFrame" name="frame_141">
                              <property name="sizePolicy">
                               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                                <horstretch>0</horstretch>
-                               <verstretch>4</verstretch>
+                               <verstretch>1</verstretch>
                               </sizepolicy>
                              </property>
                              <property name="frameShape">
@@ -5444,12 +5195,34 @@
                               </property>
                               <item>
                                <widget class="QLabel" name="label_68">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>1</verstretch>
+                                 </sizepolicy>
+                                </property>
                                 <property name="text">
                                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Fecha llegada:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                 </property>
                                </widget>
                               </item>
                              </layout>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QFrame" name="frame_164">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>10</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="frameShape">
+                              <enum>QFrame::Shape::NoFrame</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Shadow::Raised</enum>
+                             </property>
                             </widget>
                            </item>
                            <item>
@@ -5495,6 +5268,248 @@
                           </layout>
                          </widget>
                         </item>
+                        <item row="0" column="1">
+                         <widget class="QFrame" name="frame_131">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                            <horstretch>6</horstretch>
+                            <verstretch>4</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="frameShape">
+                           <enum>QFrame::Shape::NoFrame</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Shadow::Raised</enum>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_64">
+                           <property name="spacing">
+                            <number>0</number>
+                           </property>
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QFrame" name="frame_135">
+                             <property name="sizePolicy">
+                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                               <horstretch>0</horstretch>
+                               <verstretch>12</verstretch>
+                              </sizepolicy>
+                             </property>
+                             <property name="frameShape">
+                              <enum>QFrame::Shape::NoFrame</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Shadow::Raised</enum>
+                             </property>
+                             <layout class="QVBoxLayout" name="verticalLayout_82">
+                              <property name="spacing">
+                               <number>0</number>
+                              </property>
+                              <property name="leftMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QFrame" name="frame_137">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                  <horstretch>3</horstretch>
+                                  <verstretch>1</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                 <enum>QFrame::Shape::NoFrame</enum>
+                                </property>
+                                <property name="frameShadow">
+                                 <enum>QFrame::Shadow::Raised</enum>
+                                </property>
+                                <layout class="QHBoxLayout" name="horizontalLayout_37">
+                                 <property name="leftMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <item>
+                                  <widget class="QFrame" name="frame_138">
+                                   <property name="sizePolicy">
+                                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                     <horstretch>1</horstretch>
+                                     <verstretch>4</verstretch>
+                                    </sizepolicy>
+                                   </property>
+                                   <property name="frameShape">
+                                    <enum>QFrame::Shape::NoFrame</enum>
+                                   </property>
+                                   <property name="frameShadow">
+                                    <enum>QFrame::Shadow::Raised</enum>
+                                   </property>
+                                   <layout class="QVBoxLayout" name="verticalLayout_68">
+                                    <property name="spacing">
+                                     <number>0</number>
+                                    </property>
+                                    <property name="leftMargin">
+                                     <number>0</number>
+                                    </property>
+                                    <property name="topMargin">
+                                     <number>0</number>
+                                    </property>
+                                    <property name="bottomMargin">
+                                     <number>0</number>
+                                    </property>
+                                    <item>
+                                     <widget class="QDateEdit" name="dateEdit">
+                                      <property name="sizePolicy">
+                                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                                        <horstretch>0</horstretch>
+                                        <verstretch>1</verstretch>
+                                       </sizepolicy>
+                                      </property>
+                                      <property name="calendarPopup">
+                                       <bool>true</bool>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                   </layout>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QFrame" name="frame_154">
+                                   <property name="sizePolicy">
+                                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                     <horstretch>2</horstretch>
+                                     <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                   </property>
+                                   <property name="frameShape">
+                                    <enum>QFrame::Shape::NoFrame</enum>
+                                   </property>
+                                   <property name="frameShadow">
+                                    <enum>QFrame::Shadow::Raised</enum>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                </layout>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QFrame" name="frame_132">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>1</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                 <enum>QFrame::Shape::NoFrame</enum>
+                                </property>
+                                <property name="frameShadow">
+                                 <enum>QFrame::Shadow::Raised</enum>
+                                </property>
+                                <layout class="QHBoxLayout" name="horizontalLayout_38">
+                                 <item>
+                                  <spacer name="horizontalSpacer_24">
+                                   <property name="orientation">
+                                    <enum>Qt::Orientation::Horizontal</enum>
+                                   </property>
+                                   <property name="sizeHint" stdset="0">
+                                    <size>
+                                     <width>40</width>
+                                     <height>20</height>
+                                    </size>
+                                   </property>
+                                  </spacer>
+                                 </item>
+                                 <item>
+                                  <widget class="QPushButton" name="pushButton_3">
+                                   <property name="text">
+                                    <string>Ingresar</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QPushButton" name="pushButton">
+                                   <property name="text">
+                                    <string>Modificar</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QPushButton" name="pushButton_2">
+                                   <property name="text">
+                                    <string>Eliminar</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                </layout>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QTableView" name="tableView">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>9</verstretch>
+                                 </sizepolicy>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QFrame" name="frame_136">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>1</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                 <enum>QFrame::Shape::NoFrame</enum>
+                                </property>
+                                <property name="frameShadow">
+                                 <enum>QFrame::Shadow::Raised</enum>
+                                </property>
+                                <layout class="QHBoxLayout" name="horizontalLayout_32">
+                                 <property name="leftMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <property name="topMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <property name="bottomMargin">
+                                  <number>0</number>
+                                 </property>
+                                 <item>
+                                  <widget class="QComboBox" name="comboBox"/>
+                                 </item>
+                                 <item>
+                                  <widget class="QFrame" name="frame_144">
+                                   <property name="frameShape">
+                                    <enum>QFrame::Shape::NoFrame</enum>
+                                   </property>
+                                   <property name="frameShadow">
+                                    <enum>QFrame::Shadow::Raised</enum>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                </layout>
+                               </widget>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
                        </layout>
                       </widget>
                      </item>
@@ -5502,7 +5517,7 @@
                       <widget class="QFrame" name="frame_143">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                         <horstretch>1</horstretch>
+                         <horstretch>2</horstretch>
                          <verstretch>1</verstretch>
                         </sizepolicy>
                        </property>
@@ -5525,7 +5540,7 @@
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                       <horstretch>0</horstretch>
-                      <verstretch>7</verstretch>
+                      <verstretch>1</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="frameShape">
@@ -6199,6 +6214,21 @@
           </widget>
           <widget class="QWidget" name="pageComLis">
            <layout class="QVBoxLayout" name="verticalLayout_51">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QFrame" name="frame_99">
               <property name="sizePolicy">
@@ -6229,44 +6259,6 @@
                <property name="spacing">
                 <number>0</number>
                </property>
-               <item row="2" column="0">
-                <spacer name="horizontalSpacer_21">
-                 <property name="orientation">
-                  <enum>Qt::Orientation::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="3" column="0">
-                <widget class="QTableView" name="tablaInventario_7">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>10</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="editTriggers">
-                  <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
-                 </property>
-                 <property name="alternatingRowColors">
-                  <bool>true</bool>
-                 </property>
-                 <property name="selectionMode">
-                  <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
-                 </property>
-                 <property name="selectionBehavior">
-                  <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
-                 </property>
-                 <property name="sortingEnabled">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
                <item row="4" column="0">
                 <widget class="QFrame" name="frame_108">
                  <property name="sizePolicy">
@@ -6296,7 +6288,7 @@
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="actionRefrescar_9">
+                   <widget class="QPushButton" name="refrescarComLisBtn">
                     <property name="toolTip">
                      <string>Recargar tabla</string>
                     </property>
@@ -6310,6 +6302,44 @@
                   </item>
                  </layout>
                 </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QTableView" name="ordenesComLisTable">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>10</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+                 </property>
+                 <property name="alternatingRowColors">
+                  <bool>true</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+                 </property>
+                 <property name="selectionBehavior">
+                  <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <spacer name="horizontalSpacer_21">
+                 <property name="orientation">
+                  <enum>Qt::Orientation::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
                <item row="1" column="0">
                 <widget class="QFrame" name="frame_109">
@@ -6325,6 +6355,183 @@
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
                  </property>
+                 <layout class="QGridLayout" name="gridLayout_44">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QFrame" name="frame_163">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>2</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Shape::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Shadow::Raised</enum>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_78">
+                     <item>
+                      <widget class="QLabel" name="label_75">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <pointsize>18</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>Listado de Ordenes</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QFrame" name="frame_162">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>1</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::Shape::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Shadow::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_35">
+                     <item>
+                      <widget class="QLabel" name="label_74">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>2</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Filtrar por estado:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="filtroestadoComLisCombo">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                         <horstretch>1</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>Todos</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Pendiente</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Cerrado</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_72">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>1</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;desde:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QDateEdit" name="fechadesdeComLisDate">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>1</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="calendarPopup">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_73">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>1</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Hasta:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QDateEdit" name="fechahastaComLisDate">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>1</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="calendarPopup">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QFrame" name="frame_159">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>26</horstretch>
+                         <verstretch>1</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::Shape::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Shadow::Raised</enum>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
               </layout>

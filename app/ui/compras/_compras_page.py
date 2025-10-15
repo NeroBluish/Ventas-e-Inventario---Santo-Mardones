@@ -65,9 +65,9 @@ def show_inv_page(root, page_object_name: str):
     elif page_object_name == "pageComMod":
         enter_com_modificar(root)
     elif page_object_name == "pageComElim":
-        enter_com_eliminar
+        enter_com_eliminar(root)
     elif page_object_name == "pageComLis":
-        enter_com_listar     
+        enter_com_listar(root)   
 
 
     stk.setCurrentWidget(page)
