@@ -19,10 +19,8 @@ def main():
         sys.exit(0)
 
     # 2) Abrir MainWindow
-    username = login.findChild(QLineEdit, "usernameEdit").text().strip() if login else "admin"
     w = create_main_window(username="admin")
     w.show()
-    app.exec()
 
     sys.exit(app.exec())
 
